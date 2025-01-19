@@ -41,7 +41,6 @@ function EditProfile({ googleAPIKey }) {
         { id: userId },
         {
           headers: {
-            // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmFtZSI6ImFkbWluIiwiaWF0IjoxNzM3Mjk4ODI4LCJleHAiOjE3MzczMDI0Mjh9.rq0JjlYIzHDz_F3aOm8bXPucNeJ6ai0o71mfEX4F9vA`,
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
@@ -49,7 +48,6 @@ function EditProfile({ googleAPIKey }) {
       .then((res) => {
         const profile = res.data || {};
 
-        // Safely set default values
         setFormData({
           name: profile.name ?? "",
           description: profile.description ?? "",
@@ -60,9 +58,8 @@ function EditProfile({ googleAPIKey }) {
           owner: profile.owner ?? "",
         });
 
-        // Safely set coordinates if they exist
-        const lat = profile.coord?.lat ?? 0; // Default latitude if not provided
-        const lng = profile.coord?.lng ?? 0; // Default longitude if not provided
+        const lat = profile.coord?.lat ?? 0;
+        const lng = profile.coord?.lng ?? 0;
         setLat(lat);
         setLng(lng);
         setCenter({ lat, lng });
@@ -81,14 +78,13 @@ function EditProfile({ googleAPIKey }) {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (e.target.name === "address") {
-      setAddressSearched(false); // Reset addressSearched when address changes
+      setAddressSearched(false);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!addressSearched) {
-      // alert("Please search for a valid address before submitting the form");
       toast.error(
         "Please search for a valid address before submitting the form"
       );
@@ -107,8 +103,6 @@ function EditProfile({ googleAPIKey }) {
       .put(`http://localhost:3000/api/profiles/${userId}`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
-          // Authorization:
-          //   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmFtZSI6ImFkbWluIiwiaWF0IjoxNzM3Mjk4ODI4LCJleHAiOjE3MzczMDI0Mjh9.rq0JjlYIzHDz_F3aOm8bXPucNeJ6ai0o71mfEX4F9vA",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
@@ -133,7 +127,7 @@ function EditProfile({ googleAPIKey }) {
         setCenter({ lat: la, lng: ln });
         console.log(lat, ln);
         setIsNewAddressValid(true);
-        setAddressSearched(true); // Set addressSearched to true after successful search
+        setAddressSearched(true);
       })
       .catch((err) => {
         console.log(err);
@@ -182,15 +176,45 @@ function EditProfile({ googleAPIKey }) {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center  relative py-10">
+    <div className="min-h-screen flex justify-center items-center relative py-10">
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-400 blur-3xl opacity-10 rounded-full"></div>
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500 blur-3xl opacity-10 rounded-full"></div>
 
       <div className="bg-opacity-30 md:backdrop-filter md:backdrop-blur-lg md:border border-gray-200 md:border-opacity-30 rounded-lg md:shadow-lg w-full max-w-3xl p-8 text-white">
         <h2 className="text-3xl font-bold text-center mb-8">Edit Profile</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="flex justify-between space-x-6">
-            <div className="w-2/3 space-y-4">
+          <div className="flex flex-col md:flex-row justify-between space-y-6 md:space-y-0 md:space-x-6">
+            <div className="flex flex-col items-center justify-center space-y-4 w-full md:w-1/3">
+              <input
+                type="file"
+                ref={profilePicRef}
+                style={{ display: "none" }}
+                accept="image/jpeg"
+                onChange={handleProfilePicChange}
+              />
+
+              {picChanged ? (
+                <img
+                  src={profilePic}
+                  alt="Profile"
+                  className="w-28 h-28 rounded-full border-4 border-blue-400 shadow-md"
+                />
+              ) : (
+                <img
+                  src={`../../Backend/${formData.photo}`}
+                  alt="Profile"
+                  className="w-28 h-28 rounded-full border-4 border-blue-400 shadow-md"
+                />
+              )}
+              <button
+                type="button"
+                onClick={handleButtonClick}
+                className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-md hover:opacity-80 transition duration-300"
+              >
+                Upload Picture
+              </button>
+            </div>
+            <div className="w-full md:w-2/3 space-y-4">
               <div className="flex flex-col">
                 <label className="text-sm font-medium">Username:</label>
                 <input
@@ -225,36 +249,6 @@ function EditProfile({ googleAPIKey }) {
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded-md border border-gray-300 placeholder-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-opacity-40"
                 />
               </div>
-            </div>
-            <div className="flex flex-col items-center justify-end space-y-4 w-1/3">
-              <input
-                type="file"
-                ref={profilePicRef}
-                style={{ display: "none" }}
-                accept="image/jpeg"
-                onChange={handleProfilePicChange}
-              />
-
-              {picChanged ? (
-                <img
-                  src={profilePic}
-                  alt="Profile"
-                  className="mt-4 w-28 h-28 rounded-full border-4 border-blue-400 shadow-md"
-                />
-              ) : (
-                <img
-                  src={`../../Backend/${formData.photo}`}
-                  alt="Profile"
-                  className="mt-4 w-28 h-28 rounded-full border-4 border-blue-400 shadow-md"
-                />
-              )}
-              <button
-                type="button"
-                onClick={handleButtonClick}
-                className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-md hover:opacity-80 transition duration-300"
-              >
-                Upload Picture
-              </button>
             </div>
           </div>
 

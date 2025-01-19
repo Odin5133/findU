@@ -8,6 +8,11 @@ Watch the project in action:
 
 [![Project Showcase](https://img.youtube.com/vi/MIIh4ow-ufI/maxresdefault.jpg)](https://youtu.be/MIIh4ow-ufI)
 
+#### Mobile UI
+
+![Alt text](./public/mobile_UI1.png)
+![Alt text](./public/mobile_UI2.png)
+
 ## Prerequisites
 
 Before you begin, make sure you have the following installed:
