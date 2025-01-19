@@ -10,8 +10,10 @@ Watch the project in action:
 
 #### Mobile UI
 
-![Alt text](./public/mobile_UI1.png)
-![Alt text](./public/mobile_UI2.png)
+<div style="display: flex; justify-content: space-between;">
+  <img src="./public/mobile_UI1.png" alt="Mobile UI 1" width="45%" />
+  <img src="./public/mobile_UI2.png" alt="Mobile UI 2" width="45%" />
+</div>
 
 ## Prerequisites
 
