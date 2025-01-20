@@ -15,6 +15,12 @@ Watch the project in action:
   <img src="./public/mobile_UI2.png" alt="Mobile UI 2" width="45%" />
 </div>
 
+#### PC UI
+
+<div style="display: flex; justify-content: space-center; width:100vw;">
+<img src="./public/PC_UI.png" alt="Mobile UI 2" width="70%" />
+</div>
+
 ## Prerequisites
 
 Before you begin, make sure you have the following installed:

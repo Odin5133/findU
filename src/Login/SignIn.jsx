@@ -129,7 +129,7 @@ function SignIn() {
                 <input
                   type="text"
                   className="rounded-md px-2 py-1 w-full bg-background border-2 border-primary text-black focus:outline-none focus:border-accent"
-                  placeholder="InvincibleMe3"
+                  placeholder="admin"
                   value={username}
                   onChange={handleUsernameChange}
                   required
@@ -146,7 +146,7 @@ function SignIn() {
                 <input
                   type="password"
                   className="rounded-md px-2 py-1 w-full bg-background border-2 border-primary text-black focus:outline-none focus:border-accent"
-                  placeholder="SuperSecretPassword123"
+                  placeholder="admin"
                   value={password}
                   onChange={handlePasswordChange}
                   required

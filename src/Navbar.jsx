@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { IconLocation, IconArrowRight, IconLogout } from "@tabler/icons-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import ProfileSearchBox from "./Components/ProfileSearchBox";
 
 function Navbar() {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -47,8 +48,13 @@ function Navbar() {
       >
         <IconLocation stroke={2} />
         <span>FindU</span>
+        {/* <ProfileSearchBox /> */}
       </div>
-      <div className="flex justify-between items-center h-16 bg-gray-800 text-white gap-4">
+      <div className="flex justify-between items-center h-16 text-white gap-4">
+        <div className="px-5 hidden md:flex">
+          <ProfileSearchBox />
+        </div>
+
         <div className="flex items-center h-full">
           {isSignedIn ? (
             <div className="flex h-full">

@@ -122,4 +122,19 @@ router.get("/is-admin", authToken, (req, res) => {
   }
 });
 
+router.post("/search", async (req, res) => {
+  const { userField } = req.body;
+  try {
+    const profiles = await Profile.find({
+      $or: [
+        { name: { $regex: userField, $options: "i" } },
+        { address: { $regex: userField, $options: "i" } },
+      ],
+    }).select("id name");
+    res.json(profiles);
+  } catch (error) {
+    res.status(400).json({ error: "Error searching profiles", details: error });
+  }
+});
+
 module.exports = router;

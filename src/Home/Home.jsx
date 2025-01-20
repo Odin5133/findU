@@ -45,13 +45,13 @@ function Home({ googleAPIKey }) {
   };
 
   return (
-    <div className="flex flex-col md:flex-row w-full h-screen overflow-hidden">
+    <div className="flex flex-col md:flex-row w-full h-[92.5vh] overflow-hidden">
       {/* Sidebar */}
-      <div className="md:w-1/4 w-full md:overflow-y-auto h-[50vh] md:h-full bg-gray-900">
+      <div className="md:w-1/4 md:min-w-96 w-full  h-[50vh] md:h-[93vh] bg-gray-900">
         <h1 className="text-2xl md:text-4xl text-white text-center py-4">
           Profiles
         </h1>
-        <div className="md:pb-4 h-full overflow-y-auto px-4">
+        <div className="md:pb-4 h-[90%] overflow-y-auto px-4">
           {profiles.length > 0 ? (
             profiles.map((prof, i) => (
               <div className="flex items-center border-b border-gray-700 shadow-lg bg-gray-800 bg-opacity-80 backdrop-blur-md text-white px-4 py-3 mb-3 rounded-lg">
